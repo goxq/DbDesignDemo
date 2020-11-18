@@ -2,6 +2,8 @@ package javademo.service;
 
 import javademo.entities.Borrow;
 import javademo.exception.BookRemainingZeroException;
+import javademo.exception.BorrowIsExistException;
+import javademo.exception.DateException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,5 +23,5 @@ public interface BorrowService {
 
     public boolean isBorrowExist(String stuId, String bookId) throws SQLException;
 
-    public void stuBorrow(Borrow borrow) throws SQLException, BookRemainingZeroException;
+    public void stuBorrow(Borrow borrow) throws SQLException, BookRemainingZeroException, BorrowIsExistException, DateException;
 }

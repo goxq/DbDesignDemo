@@ -154,11 +154,11 @@
                             <label for="book-price">价格:</label>
                             <input type="text" name="price" id="book-price">
                         </div>
+                        <!-- 模态框底部 -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="book-add-input">提交</button>
+                        </div>
                     </form>
-                </div>
-                <!-- 模态框底部 -->
-                <div class="modal-footer">
-                    <button class="btn btn-primary" id="book-add-input">提交</button>
                 </div>
             </div>
         </div>
@@ -234,12 +234,13 @@
                             <label for="book-price">价格:</label>
                             <input type="text" name="price" id="book-price">
                         </div>
+                        <!-- 模态框底部 -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="book-alert-input">提交</button>
+                        </div>
                     </form>
                 </div>
-                <!-- 模态框底部 -->
-                <div class="modal-footer">
-                    <button class="btn btn-primary" id="book-alert-input">提交</button>
-                </div>
+
             </div>
         </div>
     </div>

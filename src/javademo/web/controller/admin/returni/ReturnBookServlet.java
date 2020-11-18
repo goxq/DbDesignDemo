@@ -1,14 +1,18 @@
-package javademo.web.controller.student;
+package javademo.web.controller.admin.returni;
 
 import javademo.entities.Book;
 import javademo.entities.Borrow;
+import javademo.entities.Return;
 import javademo.exception.BookRemainingZeroException;
 import javademo.exception.BorrowIsExistException;
 import javademo.exception.DateException;
+import javademo.exception.ReturnIsExistException;
 import javademo.service.BookService;
 import javademo.service.BorrowService;
+import javademo.service.ReturnService;
 import javademo.service.impl.BookServiceImpl;
 import javademo.service.impl.BorrowServiceImpl;
+import javademo.service.impl.ReturnServiceImpl;
 import javademo.utils.WebUtils;
 
 import javax.servlet.ServletException;
@@ -22,32 +26,27 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 
-@WebServlet("/BorrowBookServlet")
-public class BorrowBookServlet extends HttpServlet {
+@WebServlet("/ReturnBookServlet")
+public class ReturnBookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        if(!session.getAttribute("permission").toString().equals("2")){
+        if(!session.getAttribute("permission").toString().equals("0")){
             resp.sendRedirect(req.getContextPath()+"/LoginUIServlet");
             return;
         }
         resp.setCharacterEncoding("UTF-8");
-        Borrow borrow = WebUtils.request2Bean(req,Borrow.class);
-        java.util.Date date = new java.util.Date();
-        borrow.setBorrowDate(new java.sql.Date(date.getTime()));
-        BorrowService borrowService = new BorrowServiceImpl();
+        Return returni = WebUtils.request2Bean(req,Return.class);
+        ReturnService returnService = new ReturnServiceImpl();
         try{
-            borrowService.stuBorrow(borrow);
-        }catch (DateException de){
+            returnService.stuReturn(returni);
+        }catch (ReturnIsExistException riee){
+            resp.setStatus(401);
+            resp.getWriter().print("已经归还，请勿重复归还");
+        }
+        catch (DateException de){
             resp.setStatus(401);
             resp.getWriter().print("日期错误");
-        }
-        catch (BookRemainingZeroException brze){
-            resp.setStatus(401);
-            resp.getWriter().print("书籍余量为0，请刷新后重试");
-        }catch (BorrowIsExistException biee){
-            resp.setStatus(401);
-            resp.getWriter().print("此书已经借阅");
         } catch (SQLException sqlException){
             sqlException.printStackTrace();
         }

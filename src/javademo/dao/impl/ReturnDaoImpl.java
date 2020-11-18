@@ -87,7 +87,7 @@ public class ReturnDaoImpl implements ReturnDao {
 
     @Override
     public void addReturn(Return returni) throws SQLException {
-        String sql = "INSERT INTO return (`stu_id`, `book_id`,`real_return_date`) VALUES (?,?,?)";
+        String sql = "INSERT INTO returni (`stu_id`, `book_id`,`real_return_date`) VALUES (?,?,?)";
         Connection con = MySQLConUtils.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
 
@@ -103,7 +103,7 @@ public class ReturnDaoImpl implements ReturnDao {
 
     @Override
     public void alertReturn(Return returni) throws SQLException {
-        String sql = "UPDATE return SET real_return_date = ? WHERE stu_id = ? AND book_id = ?";
+        String sql = "UPDATE returni SET real_return_date = ? WHERE stu_id = ? AND book_id = ?";
         Connection con = MySQLConUtils.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setDate(1, returni.getRealReturnDate());
@@ -118,7 +118,7 @@ public class ReturnDaoImpl implements ReturnDao {
 
     @Override
     public void deleteReturn(Return returni) throws SQLException {
-        String sql = "DELETE FROM return WHERE stu_id = ? AND book_id = ?";
+        String sql = "DELETE FROM returni WHERE stu_id = ? AND book_id = ?";
         Connection con = MySQLConUtils.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, returni.getStuId());
@@ -131,8 +131,8 @@ public class ReturnDaoImpl implements ReturnDao {
     }
 
     @Override
-    public boolean ReturnIsExist(Return returni) throws SQLException {
-        String sql = "SELECT * FROM return WHERE stu_id = ? AND book_id = ?";
+    public boolean returnIsExist(Return returni) throws SQLException {
+        String sql = "SELECT * FROM returni WHERE stu_id = ? AND book_id = ?";
         Connection con = MySQLConUtils.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
 
@@ -146,5 +146,23 @@ public class ReturnDaoImpl implements ReturnDao {
         ps.close();
         con.close();
         return rsNext;
+    }
+
+    @Override
+    public void stuReturn(Return returni) throws SQLException {
+        String stuId = returni.getStuId();
+        String bookId = returni.getBookId();
+        java.sql.Date realReturnDate = returni.getRealReturnDate();
+        String sql1 = "INSERT INTO returni (`stu_id`, `book_id`, `real_return_date`) VALUES (\""+stuId+"\",\""+bookId+"\",\""+realReturnDate.toString()+"\")";
+        String sql2 = "update book set book_remaining_num = book_remaining_num + 1 where book_id =" + bookId;
+        Connection con = MySQLConUtils.getConnection();
+        Statement sm = con.createStatement();
+        sm.addBatch(sql1);
+        sm.addBatch(sql2);
+        sm.executeBatch();
+
+        sm.close();
+        con.close();
+
     }
 }

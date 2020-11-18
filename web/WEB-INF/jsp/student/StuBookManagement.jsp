@@ -119,12 +119,13 @@
                         <label for="expect-return-date">还书日期:</label>
                         <input type="date" name="expectReturnDate" id="expect-return-date">
                     </div>
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="book-borrow-input">提交</button>
+                    </div>
                 </form>
             </div>
-            <!-- 模态框底部 -->
-            <div class="modal-footer">
-                <button class="btn btn-primary" id="book-borrow-input">提交</button>
-            </div>
+
         </div>
     </div>
 </div>

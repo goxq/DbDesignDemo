@@ -87,7 +87,7 @@ $("#table-content").on("click","#book-borrow-button",function () {
  * 借阅书籍
  * 表单校验
  */
-$("#book-add-form").validator({
+$("#book-borrow-form").validator({
     rules : {
         //自定义规则
         idValidate : [ /^\d{10}$/, "书籍编号长度必须为10位数字" ],
@@ -95,25 +95,19 @@ $("#book-add-form").validator({
     fields : {
         'stuId' : "required",
         'bookId' : "required;idValidate",
-        'expectReturnDate' : "required"
-
-
+        'expectReturnDate' : "required;dateValidate"
 
     },
-    valid : $("#book-borrow-input").click(function () {
-        // $.post("BorrowBookServlet",$("#book-borrow-form").serialize(),function (data,status) {
-        //     alert("借阅成功！");
-        //     $("#book-borrow").modal("hide");
-        //     $(".modal-backdrop").remove();
-        //     $("#contain").load($("#path").val() + "/StuBookManagementUIServlet");
-        // })
-
+    valid : function (form) {
         $.ajax({
             type : "POST",
             url : "BorrowBookServlet",
-            data : $("#book-borrow-form").serialize(),
+            data : $(form).serialize(),
             success : function (result) {
                 alert("借阅成功");
+                $("#book-borrow").modal("hide");
+                $(".modal-backdrop").remove();
+                $("#contain").load($("#path").val() + "/StuBookManagementUIServlet");
             },
             error : function (e) {
                 if(e.status === 401){
@@ -123,7 +117,7 @@ $("#book-add-form").validator({
                 }
             }
         });
-    })
+    }
 });
 
 

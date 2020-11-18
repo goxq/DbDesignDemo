@@ -57,8 +57,12 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public void stuBorrow(Borrow borrow) throws SQLException, BookRemainingZeroException {
+    public void stuBorrow(Borrow borrow) throws SQLException, BookRemainingZeroException, BorrowIsExistException, DateException {
         Book book = bookDao.queryBookById(borrow.getBookId());
+        if(borrow.getExpectReturnDate().before(borrow.getBorrowDate()))
+            throw new DateException();
+        if(isBorrowExist(borrow.getStuId(),borrow.getBookId()))
+            throw new BorrowIsExistException();
         if(book.getRemainingNum()==0)
             throw new BookRemainingZeroException();
         borrowDao.stuBorrow(borrow);

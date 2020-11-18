@@ -18,5 +18,7 @@ public interface ReturnDao {
 
     public void deleteReturn(Return returnX) throws SQLException;
 
-    public boolean ReturnIsExist(Return returnX) throws SQLException;
+    public boolean returnIsExist(Return returnX) throws SQLException;
+
+    public void stuReturn(Return returni) throws SQLException;
 }

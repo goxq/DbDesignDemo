@@ -81,7 +81,7 @@ $("#book-add-button").click(function(){
 });
 /**
  * 点击修改书籍事件，拉取表单内容
- * 把row的index拼接在了“修改”按钮的button里，前十位为bookId，后面的是index。
+ * 把row的index放在了按钮里
  */
 $("#table-content").on("click","#book-alert-button",function () {
     var rowIndex = $(this).val();
@@ -118,8 +118,8 @@ $("#book-add-form").validator({
         'totalNum' : "required;integer",
         'price' : "required;priceValidate"
     },
-    valid : $("#book-add-input").click(function () {
-        $.post("AddBookServlet",$("#book-add-form").serialize(),function (data,status) {
+    valid : function (form) {
+        $.post("AddBookServlet",$(form).serialize(),function (data,status) {
             alert("添加成功！");
             $("#book-add-form div #book-id").val("");
             $("#book-add-form div #book-name").val("");
@@ -128,8 +128,8 @@ $("#book-add-form").validator({
             $("#book-add-form div #book-press").val("");
             $("#book-add-form div #book-total-num").val("");
             $("#book-add-form div #book-price").val("");
-        })
-    })
+        });
+    }
 });
 
 /*
@@ -151,14 +151,14 @@ $("#book-alert-form").validator({
         'totalNum' : "required;integer",
         'price' : "required;priceValidate"
     },
-    valid : $("#book-alert-input").click(function () {
-        $.post("AlertBookServlet",$("#book-alert-form").serialize(),function (data,status) {
+    valid :  function (form) {
+        $.post("AlertBookServlet",$(form).serialize(),function (data,status) {
             alert("修改成功！");
             $("#book-alert").modal("hide");
             $(".modal-backdrop").remove();
             $("#contain").load($("#path").val() + "/BookManagementUIServlet");
-        })
-    })
+        });
+    }
 });
 
 /*

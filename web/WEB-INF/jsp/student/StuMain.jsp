@@ -53,8 +53,8 @@
     <div class="index">
         <ul class="nav bg-light nav-pills flex-column nav-justified">
             <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath }/StuBookManagementUIServlet">图书信息</a></li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/MajorManagement">专业管理</a></li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/CollegeManagement">学院管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/StuBorrowManagementUIServlet">我的借阅</a></li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/StuReturnManagementUIServlet">我的归还</a></li>
             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/LogOutServlet" value="logout">退出登录</a></li>
         </ul>
     </div>

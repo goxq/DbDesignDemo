@@ -85,6 +85,35 @@ public class BorrowDaoImpl implements BorrowDao {
     }
 
     @Override
+    public Borrow queryBorrowByBookIdAndStuId(String stuId, String bookId) throws SQLException {
+        String sql = "select*from borrow natural join book natural join student natural left outer join returni where stu_id = ? and book_id = ?";
+        Connection con = MySQLConUtils.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1,stuId);
+        ps.setString(2,bookId);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            Borrow borrow = new Borrow();
+            borrow.setStuId(rs.getString(1));
+            borrow.setStuName(rs.getString(12));
+            borrow.setBookId(rs.getString(2));
+            borrow.setBookName(rs.getString(5));
+            borrow.setBorrowDate(rs.getDate(3));
+            borrow.setExpectReturnDate(rs.getDate(4));
+            borrow.setRealReturnDate(rs.getDate(14));
+            rs.close();
+            ps.close();
+            con.close();
+            return borrow;
+        }else{
+            rs.close();
+            ps.close();
+            con.close();
+            return null;
+        }
+    }
+
+    @Override
     public void addBorrow(Borrow borrow) throws SQLException {
         String sql = "INSERT INTO borrow (`stu_id`, `book_id`, `borrow_date`,`expect_return_date`) VALUES (?,?,?,?)";
         Connection con = MySQLConUtils.getConnection();
@@ -133,7 +162,7 @@ public class BorrowDaoImpl implements BorrowDao {
 
     @Override
     public boolean borrowIsExist(Borrow borrow) throws SQLException {
-        String sql = "SELECT * FROM book WHERE stu_id = ? AND book_id = ?";
+        String sql = "SELECT * FROM borrow WHERE stu_id = ? AND book_id = ?";
         Connection con = MySQLConUtils.getConnection();
         PreparedStatement ps = con.prepareStatement(sql);
 
@@ -155,7 +184,7 @@ public class BorrowDaoImpl implements BorrowDao {
         String bookId = borrow.getBookId();
         java.sql.Date borrowDate = borrow.getBorrowDate();
         java.sql.Date expectReturnDate = borrow.getExpectReturnDate();
-        String sql1 = "INSERT INTO borrow (`stu_id`, `book_id`, `borrow_date`,`expect_return_date`) VALUES ("+stuId+","+bookId+",\""+borrowDate.toString()+"\",\""+expectReturnDate.toString()+"\")";
+        String sql1 = "INSERT INTO borrow (`stu_id`, `book_id`, `borrow_date`,`expect_return_date`) VALUES (\""+stuId+"\",\""+bookId+"\",\""+borrowDate.toString()+"\",\""+expectReturnDate.toString()+"\")";
         String sql2 = "update book set book_remaining_num = book_remaining_num - 1 where book_id =" + bookId;
         Connection con = MySQLConUtils.getConnection();
         Statement sm = con.createStatement();
