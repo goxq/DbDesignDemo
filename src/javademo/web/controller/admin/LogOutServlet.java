@@ -1,4 +1,4 @@
-package javademo.web.controller;
+package javademo.web.controller.admin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +14,6 @@ public class LogOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.invalidate();
-        System.out.println("mamamamamam");
         resp.sendRedirect(req.getContextPath()+"/HomeUIServlet");
     }
 

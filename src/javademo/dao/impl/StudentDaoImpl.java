@@ -32,7 +32,13 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void addStudent(Student student) throws SQLException {
-
+        String sql = "INSERT INTO student (`stu_id`, `stu_name`, `stu_password`) VALUES (?,?,?)";
+        Connection ct = MySQLConUtils.getConnection();
+        PreparedStatement ps = ct.prepareStatement(sql);
+        ps.setString(1, student.getStuId());
+        ps.setString(2,student.getStuName());
+        ps.setString(3,student.getStuPassword());
+        ps.executeUpdate();
     }
 
     @Override
@@ -72,5 +78,19 @@ public class StudentDaoImpl implements StudentDao {
         ps.close();
         ct.close();
         return student;
+    }
+
+    @Override
+    public boolean isStuExist(Student student) throws SQLException {
+        String sql = "select * from student where stu_id = ?";
+        Connection ct = MySQLConUtils.getConnection();
+        PreparedStatement ps = ct.prepareStatement(sql);
+        ps.setString(1,student.getStuId());
+        ResultSet rs = ps.executeQuery();
+        boolean rsNext = rs.next();
+        rs.close();
+        ps.close();
+        ct.close();
+        return rsNext;
     }
 }

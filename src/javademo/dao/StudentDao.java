@@ -11,4 +11,5 @@ public interface StudentDao {
     public void addStudent(Student student) throws SQLException;
     public List<Student> queryAllStudent() throws SQLException;
     public Student queryStudentById(String id) throws SQLException;
+    public boolean isStuExist(Student student) throws SQLException;
 }

@@ -1,0 +1,41 @@
+* {
+    padding: 0;
+    margin: 0;
+    font: "微软雅黑";
+}
+
+/*body {*/
+/*	background-image: url("../images/login-background.svg");*/
+/*	background-size: cover;*/
+/*}*/
+
+.container {
+    width: 700px;
+    height:400px;
+    padding:100px;
+    background-color: papayawhip;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.form-group{
+    width:400px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.form-check{
+    text-align: left;
+    margin-left: 50px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.form-button button{
+    width:100px;
+    height:50px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

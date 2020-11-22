@@ -29,4 +29,12 @@ public class StudentServiceImpl implements StudentService {
         }
         return student;
     }
+
+    @Override
+    public boolean register(Student student) throws SQLException {
+        if(dao.isStuExist(student))
+            return false;
+        dao.addStudent(student);
+        return true;
+    }
 }

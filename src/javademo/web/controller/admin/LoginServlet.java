@@ -3,6 +3,7 @@ package javademo.web.controller.admin;
 import javademo.entities.Administrator;
 import javademo.service.*;
 import javademo.service.impl.AdministratorServiceImpl;
+import javademo.utils.PasswordEncryptionUtils;
 import javademo.utils.WebUtils;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         String password = admin.getPassword();
         resp.setHeader("Content-type","text/html;charset=UTF-8");
 
-        boolean loginResult = service.login(user,password);
+        boolean loginResult = service.login(user, PasswordEncryptionUtils.plainText2MD5Encrypt(password));
         if(loginResult){
             if(req.getParameter("rememberMe")==null){
                 //没选“记住我”，使用非cookie登录

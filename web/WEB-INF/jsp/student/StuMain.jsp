@@ -41,7 +41,7 @@
 
 <body>
 <div class="top">
-    <h2>您好！${sessionScope.user} <%=session.getAttribute("permission").toString().equals("0")?" 管理员":" 学生"%>，欢迎使用图书管理系统</h2>
+    <h2>您好！${sessionScope.stuName} 同学，欢迎使用图书管理系统</h2>
     <input type="hidden" value="${pageContext.request.contextPath }"
            id="path">
     <input type="hidden" value=${sessionScope.permission}
@@ -55,7 +55,7 @@
             <li class="nav-item"><a class="nav-link active" href="${pageContext.request.contextPath }/StuBookManagementUIServlet">图书信息</a></li>
             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/StuBorrowManagementUIServlet">我的借阅</a></li>
             <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/StuReturnManagementUIServlet">我的归还</a></li>
-            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/LogOutServlet" value="logout">退出登录</a></li>
+            <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/StuLogOutServlet" value="logout">退出登录</a></li>
         </ul>
     </div>
     <div class="contain" id="contain">
